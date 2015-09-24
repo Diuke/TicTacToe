@@ -15,6 +15,7 @@ namespace TicTacToe {
 	public ref class Triqui : public System::Windows::Forms::Form
 	{
 		//Var globales
+		int movimiento;
 		String^ jugador;
 		bool AI;
 		String^ maquina;
@@ -324,8 +325,8 @@ namespace TicTacToe {
 				winORdraw();
 			}
 			if (juegoValido == true && ganador == false && empate == false) {
-				int movimiento = CPUMove();
-				Pos[movimiento] = maquina;
+				int mover = CPUMove();
+				Pos[mover] = maquina;
 				PosToGamespace(); 
 				dataGridtoArray(gameSpace);
 				winORdraw();
@@ -354,7 +355,7 @@ namespace TicTacToe {
 				int posMin = 2;
 				int posMax = -2;
 			}
-			void dataGridtoArray(DataGridView^ currentGame) {
+			void dataGridtoArray(DataGridView^ currentGame) { //pasa el gamespace al vector Pos
 				int counter = 0;
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
@@ -374,10 +375,10 @@ namespace TicTacToe {
 				}
 			}
 
-			int draw(array<String^>^ currentGame) {
+			int draw() {
 				int cont = 0;
 				for (int i = 0; i < 9; i++) {
-					if (currentGame[i]->Equals("X") || currentGame[i]->Equals("O")) { cont++; }
+					if (Pos[i]->Equals("X") || Pos[i]->Equals("O")) { cont++; }
 				}
 				if (cont == 9) { return 0; }
 				else { return 2; }
@@ -415,7 +416,7 @@ namespace TicTacToe {
 					ganador = true;
 					gameSpace->Enabled = false;
 				}
-				if ((draw(Pos) == 0 && winner(Pos) != 1)) {
+				if (draw() == 0) {
 					MessageBox::Show("Empate");
 					gameSpace->Enabled = false;
 					empate = true;
@@ -445,49 +446,52 @@ namespace TicTacToe {
 
 			int CPUMove() {
 				if (Pos[4]->Equals(" ")) { return 4; } //Si el centro esta libre
-				for (int i = 0; i < 9; i++) { //Si puede ganar o le ganan o empata
+				/*for (int i = 0; i < 9; i++) { //Si puede ganar o le ganan o empata
 					if (Pos[i]->Equals(" ")) {
 						Pos[i] = maquina;
 						int gana = winner(Pos);
-						int empate = draw(Pos);
-						if (gana == 1 || gana == (-1) || draw(Pos) == 0) { 
+						int empate = draw();
+						if (gana == 1 || gana == (-1) || draw() == 0) { 
 							Pos[i] = " "; 
 							return i;
 						}
 						Pos[i] = " ";
 						Pos[i] = jugador;
 						gana = winner(Pos);
-						empate = draw(Pos);
-						if (gana == 1 || gana == (-1) || draw(Pos) == 0) {
+						empate = draw();
+						if (gana == 1 || gana == (-1) || draw() == 0) {
 							Pos[i] = " ";
 							return i;
 						}
 						Pos[i] = " ";
 					}
-				}
+				}*/
 				//Minimax
-				int move = -1, i, resTemp;
+				int i, resTemp;
+				movimiento = -1;
 				int minimo = 2;
 				for (i = 0; i < 9; i++) {
 					if (Pos[i]->Equals(" ")) { //minimiza para O
-						resTemp = minimax(maquina);
+						Pos[i] = maquina;
+						resTemp = minimax(jugador);
 						if (resTemp < minimo) {
 							minimo = resTemp;
-							move = i;
+							movimiento = i;
 						}
 						Pos[i] = " ";
 					}
 				}
-				return move;
+				return movimiento;
 				
 			}
 
 			int minimax(String^ player) {
 				int i, res;
+				int move = -1;
 				int min = 2, max = -2;
 				if (winner(Pos) == 1) { return 1; };
 				if (winner(Pos) == -1) { return -1; };
-				if (draw(Pos) == 0) { return 0; };
+				if (draw() == 0) { return 0; };
 
 				for (i = 0; i < 9; i++) {
 					if (player->Equals(jugador)) { //maximiza para X
@@ -497,6 +501,7 @@ namespace TicTacToe {
 							Pos[i] = " ";
 							if (res > max) {
 								max = res;
+								move = i;
 							}
 						}
 						
@@ -508,6 +513,7 @@ namespace TicTacToe {
 							Pos[i] = " ";
 							if (res < min) {
 								min = res;
+								move = i;
 							}
 						}
 						
