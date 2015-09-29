@@ -721,62 +721,62 @@ namespace TicTacToe {
 				
 				 
 				 //Minimax
-				 int i, resTemp;
-				 movimiento = -1;
-				 int minimo = 2;
-				 for (i = 0; i < 9; i++) {
-					 if (Pos[i]->Equals(" ")) { //analiza si hay una libre - check if there is a free position
-						 Pos[i] = maquina; //mueve a esa posicion - moves to the free position
-						 resTemp = minimax(jugador); //analiza los siguientes movimiento - analize next moves
-						 if (resTemp < minimo) { //minimiza para O - minimizes for O
-							 minimo = resTemp;
-							 movimiento = i; //Selecciona la posicion - select the position
-						 }
-						 Pos[i] = " "; //Vuelve a dejar el estado original del tablero - leaves the board on its original state
-					 }
-				 }
-				 return movimiento; //Retorna el movimiento - Returns the movement
+				int i, resTemp;
+				movimiento = -1;
+				int minimo = 2;
+				for (i = 0; i < 9; i++) {
+					if (Pos[i]->Equals(" ")) { //analiza si hay una libre - check if there is a free position
+						Pos[i] = maquina; //mueve a esa posicion - moves to the free position
+						resTemp = minimax(jugador); //analiza los siguientes movimiento - analize next moves
+						if (resTemp < minimo) { //minimiza para O - minimizes for O
+							minimo = resTemp;
+							movimiento = i; //Selecciona la posicion - select the position
+						}
+						Pos[i] = " "; //Vuelve a dejar el estado original del tablero - leaves the board on its original state
+					}
+				}
+				return movimiento; //Retorna el movimiento - Returns the movement
 
 			 }
 
 
-			 int minimax(String^ player) {
-				 int i, res;
-				 int move = -1;
-				 int min = 2, max = -2;
-				 if (winner(Pos) == 1) { return 1; };
-				 if (winner(Pos) == -1) { return -1; };
-				 if (draw() == 0) { return 0; };
+			int minimax(String^ player) {
+				int i, res;
+				int move = -1;
+				int min = 2, max = -2;
+				if (winner(Pos) == 1) { return 1; };
+				if (winner(Pos) == -1) { return -1; };
+				if (draw() == 0) { return 0; };
 
-				 for (i = 0; i < 9; i++) {
-					 if (player->Equals(jugador)) { //maximiza para X
-						 if (Pos[i]->Equals(" ")) {
-							 Pos[i] = jugador;
-							 res = minimax(maquina);
-							 Pos[i] = " ";
-							 if (res > max) {
-								 max = res;
-								 move = i;
-							 }
-						 }
+				for (i = 0; i < 9; i++) {
+					if (player->Equals(jugador)) { //maximiza para X
+						if (Pos[i]->Equals(" ")) {
+							Pos[i] = jugador;
+							res = minimax(maquina);
+							Pos[i] = " ";
+							if (res > max) {
+								max = res;
+								move = i;
+							}
+						}
 
-					 }
-					 if (player->Equals(maquina)) { //minimiza para O
-						 if (Pos[i]->Equals(" ")) {
-							 Pos[i] = maquina;
-							 res = minimax(jugador);
-							 Pos[i] = " ";
-							 if (res < min) {
-								 min = res;
-								 move = i;
-							 }
-						 }
+					}
+					if (player->Equals(maquina)) { //minimiza para O
+						if (Pos[i]->Equals(" ")) {
+							Pos[i] = maquina;
+							res = minimax(jugador);
+							Pos[i] = " ";
+							if (res < min) {
+								min = res;
+								move = i;
+							}
+						}
 
-					 }
-				 }
-				 if (player->Equals(maquina)) { return min; }
-				 if (player->Equals(jugador)) { return max; }
-			 }
+					}
+				}
+				if (player->Equals(maquina)) { return min; }
+				if (player->Equals(jugador)) { return max; }
+}
 
 			 int CPUMoveFacil() {
 				 if (Pos[4]->Equals(" ")) { return 4; } //Si el centro esta libre
