@@ -11,3 +11,4 @@ void main(array<String^>^ args) {
 	TicTacToe::Triqui form;
 	Application::Run(%form);
 }
+
