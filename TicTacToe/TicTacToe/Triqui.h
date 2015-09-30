@@ -23,7 +23,7 @@ namespace TicTacToe {
 		array<String^>^ Pos;
 		int posMin;
 		int posMax;
-		int marcaO = 0, marcaX = 0;
+		int marcaO, marcaX;
 		bool ganador;
 		bool empate;
 	private: System::Windows::Forms::Button^  VS;
@@ -51,6 +51,8 @@ namespace TicTacToe {
 			//
 			jugador = "X";
 			maquina = "O";
+			marcaO = 0;
+			marcaX = 0;
 			AI = false;
 			Pos = gcnew array<String^>{" ", " ", " ", " ", " ", " ", " ", " ", " "};
 		}
@@ -124,7 +126,7 @@ namespace TicTacToe {
 			this->marcador0 = (gcnew System::Windows::Forms::Label());
 			this->marcadorX = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gameSpace))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->gameSpace))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// gameSpace
@@ -140,7 +142,7 @@ namespace TicTacToe {
 			this->gameSpace->ClipboardCopyMode = System::Windows::Forms::DataGridViewClipboardCopyMode::EnableWithoutHeaderText;
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, 
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
 			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(100);
@@ -151,17 +153,15 @@ namespace TicTacToe {
 			this->gameSpace->ColumnHeadersHeight = 4;
 			this->gameSpace->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->gameSpace->ColumnHeadersVisible = false;
-			this->gameSpace->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->Col1, this->Col2,
-					this->Col3
-			});
+			this->gameSpace->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {this->Col1, this->Col2, 
+				this->Col3});
 			this->gameSpace->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->gameSpace->GridColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->gameSpace->Location = System::Drawing::Point(312, 110);
 			this->gameSpace->MultiSelect = false;
 			this->gameSpace->Name = L"gameSpace";
 			dataGridViewCellStyle5->BackColor = System::Drawing::SystemColors::Control;
-			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, 
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			dataGridViewCellStyle5->ForeColor = System::Drawing::SystemColors::WindowText;
 			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::SystemColors::Highlight;
@@ -183,7 +183,7 @@ namespace TicTacToe {
 			// Col1
 			// 
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Col1->DefaultCellStyle = dataGridViewCellStyle2;
 			this->Col1->HeaderText = L"";
@@ -192,7 +192,7 @@ namespace TicTacToe {
 			// Col2
 			// 
 			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Col2->DefaultCellStyle = dataGridViewCellStyle3;
 			this->Col2->HeaderText = L"";
@@ -201,7 +201,7 @@ namespace TicTacToe {
 			// Col3
 			// 
 			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Perpetua Titling MT", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Col3->DefaultCellStyle = dataGridViewCellStyle4;
 			this->Col3->HeaderText = L"";
@@ -209,7 +209,7 @@ namespace TicTacToe {
 			// 
 			// Restart
 			// 
-			this->Restart->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Restart->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Restart->Location = System::Drawing::Point(12, 573);
 			this->Restart->Name = L"Restart";
@@ -222,7 +222,7 @@ namespace TicTacToe {
 			// 
 			// VS
 			// 
-			this->VS->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->VS->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->VS->Location = System::Drawing::Point(475, 162);
 			this->VS->Name = L"VS";
@@ -234,7 +234,7 @@ namespace TicTacToe {
 			// 
 			// VSAI
 			// 
-			this->VSAI->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->VSAI->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->VSAI->Location = System::Drawing::Point(475, 368);
 			this->VSAI->Name = L"VSAI";
@@ -247,7 +247,7 @@ namespace TicTacToe {
 			// label1
 			// 
 			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"OCR A Extended", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"OCR A Extended", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(12, 9);
 			this->label1->Name = L"label1";
@@ -258,7 +258,7 @@ namespace TicTacToe {
 			// 
 			// backToMenu
 			// 
-			this->backToMenu->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->backToMenu->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->backToMenu->Location = System::Drawing::Point(1080, 573);
 			this->backToMenu->Name = L"backToMenu";
@@ -272,7 +272,7 @@ namespace TicTacToe {
 			// DificultadLabel
 			// 
 			this->DificultadLabel->BackColor = System::Drawing::Color::Transparent;
-			this->DificultadLabel->Font = (gcnew System::Drawing::Font(L"OCR A Extended", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->DificultadLabel->Font = (gcnew System::Drawing::Font(L"OCR A Extended", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->DificultadLabel->Location = System::Drawing::Point(12, 138);
 			this->DificultadLabel->Name = L"DificultadLabel";
@@ -284,7 +284,7 @@ namespace TicTacToe {
 			// 
 			// Facil
 			// 
-			this->Facil->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Facil->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Facil->Location = System::Drawing::Point(475, 240);
 			this->Facil->Name = L"Facil";
@@ -297,7 +297,7 @@ namespace TicTacToe {
 			// 
 			// Dificil
 			// 
-			this->Dificil->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Dificil->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Dificil->Location = System::Drawing::Point(475, 398);
 			this->Dificil->Name = L"Dificil";
@@ -312,7 +312,7 @@ namespace TicTacToe {
 			// 
 			this->jugando->AutoSize = true;
 			this->jugando->BackColor = System::Drawing::Color::Transparent;
-			this->jugando->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->jugando->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->jugando->Location = System::Drawing::Point(87, 275);
 			this->jugando->Name = L"jugando";
@@ -325,7 +325,7 @@ namespace TicTacToe {
 			// 
 			this->Juega->AutoSize = true;
 			this->Juega->BackColor = System::Drawing::Color::Transparent;
-			this->Juega->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Juega->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->Juega->Location = System::Drawing::Point(61, 229);
 			this->Juega->Name = L"Juega";
@@ -348,7 +348,7 @@ namespace TicTacToe {
 			// 
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(700, 536);
 			this->label3->Name = L"label3";
@@ -361,7 +361,7 @@ namespace TicTacToe {
 			// 
 			this->label4->AutoSize = true;
 			this->label4->BackColor = System::Drawing::Color::Transparent;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->label4->Location = System::Drawing::Point(468, 536);
 			this->label4->Name = L"label4";
@@ -374,7 +374,7 @@ namespace TicTacToe {
 			// 
 			this->marcador0->AutoSize = true;
 			this->marcador0->BackColor = System::Drawing::Color::Transparent;
-			this->marcador0->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->marcador0->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->marcador0->Location = System::Drawing::Point(704, 573);
 			this->marcador0->Name = L"marcador0";
@@ -387,7 +387,7 @@ namespace TicTacToe {
 			// 
 			this->marcadorX->AutoSize = true;
 			this->marcadorX->BackColor = System::Drawing::Color::Transparent;
-			this->marcadorX->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->marcadorX->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->marcadorX->Location = System::Drawing::Point(468, 573);
 			this->marcadorX->Name = L"marcadorX";
@@ -400,7 +400,7 @@ namespace TicTacToe {
 			// 
 			this->label7->AutoSize = true;
 			this->label7->BackColor = System::Drawing::Color::Transparent;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->label7->Location = System::Drawing::Point(530, 499);
 			this->label7->Name = L"label7";
@@ -415,7 +415,7 @@ namespace TicTacToe {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSize = true;
 			this->BackColor = System::Drawing::SystemColors::Window;
-			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(1220, 631);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->marcadorX);
@@ -437,7 +437,7 @@ namespace TicTacToe {
 			this->Name = L"Triqui";
 			this->Text = L"Triqui";
 			this->Load += gcnew System::EventHandler(this, &Triqui::Triqui_Load);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gameSpace))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->gameSpace))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
